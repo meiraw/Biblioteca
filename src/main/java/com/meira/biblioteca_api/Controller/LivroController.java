@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.web.servlet.function.ServerResponse.noContent;
@@ -34,6 +35,14 @@ public class LivroController {
     public ResponseEntity<Page<LivroResponseDTO>> listar(Pageable pageable ){
     Page<LivroResponseDTO> livro = livroservice.listarTudo(pageable);
     return ResponseEntity.ok(livro);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LivroResponseDTO>> buscarTitulo(@RequestParam String titulo){
+        List<LivroModel> livros = livroservice. buscarPorTitulo(titulo);
+
+        List<LivroResponseDTO> resposta = livros.stream().map(LivroResponseDTO :: new ).toList();
+        return ResponseEntity.ok(resposta);
     }
 
     @GetMapping("/{id}")

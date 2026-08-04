@@ -51,6 +51,10 @@ public class LivroService {
         return livroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("O id "+id +" não foi encontrado! "));
     }
 
+    public List <LivroModel> buscarPorTitulo(String titulo){
+        return livroRepository.findByTituloContainingIgnoreCase(titulo);
+    }
+
 
     public LivroModel atualizar (LivroRequestDTO dto ,UUID id){
 
