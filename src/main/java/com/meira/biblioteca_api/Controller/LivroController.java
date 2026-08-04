@@ -2,9 +2,11 @@ package com.meira.biblioteca_api.Controller;
 
 import com.meira.biblioteca_api.DTO.RequqestDTO.LivroRequestDTO;
 import com.meira.biblioteca_api.DTO.ResponseDTO.LivroResponseDTO;
+import com.meira.biblioteca_api.Enums.StatusLivro;
 import com.meira.biblioteca_api.Model.LivroModel;
 import com.meira.biblioteca_api.Service.LivroService;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,12 +39,17 @@ public class LivroController {
     return ResponseEntity.ok(livro);
     }
 
-    @GetMapping
+    @GetMapping("/buscar")
     public ResponseEntity<List<LivroResponseDTO>> buscarTitulo(@RequestParam String titulo){
         List<LivroModel> livros = livroservice. buscarPorTitulo(titulo);
 
         List<LivroResponseDTO> resposta = livros.stream().map(LivroResponseDTO :: new ).toList();
         return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<Page <LivroResponseDTO>> buscarstatus(@RequestParam StatusLivro status , Pageable pageable ){
+        return ResponseEntity.ok(livroservice.buscarPorStatus(status,pageable));
     }
 
     @GetMapping("/{id}")

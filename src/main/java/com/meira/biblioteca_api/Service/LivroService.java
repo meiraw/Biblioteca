@@ -2,6 +2,7 @@ package com.meira.biblioteca_api.Service;
 
 import com.meira.biblioteca_api.DTO.RequqestDTO.LivroRequestDTO;
 import com.meira.biblioteca_api.DTO.ResponseDTO.LivroResponseDTO;
+import com.meira.biblioteca_api.Enums.StatusLivro;
 import com.meira.biblioteca_api.Exception.ResourceNotFoundException;
 import com.meira.biblioteca_api.Model.AutorModel;
 import com.meira.biblioteca_api.Model.LivroModel;
@@ -54,6 +55,10 @@ public class LivroService {
     public List <LivroModel> buscarPorTitulo(String titulo){
         return livroRepository.findByTituloContainingIgnoreCase(titulo);
     }
+
+     public Page <LivroResponseDTO> buscarPorStatus(StatusLivro status, Pageable pageable ){
+         return livroRepository.findByStatus(status, pageable ).map(LivroResponseDTO :: new );
+     }
 
 
     public LivroModel atualizar (LivroRequestDTO dto ,UUID id){
