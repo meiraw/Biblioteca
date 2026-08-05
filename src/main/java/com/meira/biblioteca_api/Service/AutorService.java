@@ -1,6 +1,6 @@
 package com.meira.biblioteca_api.Service;
 
-import com.meira.biblioteca_api.DTO.RequqestDTO.AutorRequestDTO;
+import com.meira.biblioteca_api.DTO.RequestDTO.AutorRequestDTO;
 import com.meira.biblioteca_api.DTO.ResponseDTO.AutorResponseDTO;
 import com.meira.biblioteca_api.Exception.ResourceNotFoundException;
 import com.meira.biblioteca_api.Model.AutorModel;

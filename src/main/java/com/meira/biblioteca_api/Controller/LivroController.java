@@ -1,23 +1,20 @@
 package com.meira.biblioteca_api.Controller;
 
-import com.meira.biblioteca_api.DTO.RequqestDTO.LivroRequestDTO;
+import com.meira.biblioteca_api.DTO.RequestDTO.LivroRequestDTO;
 import com.meira.biblioteca_api.DTO.ResponseDTO.LivroResponseDTO;
 import com.meira.biblioteca_api.Enums.StatusLivro;
 import com.meira.biblioteca_api.Model.LivroModel;
 import com.meira.biblioteca_api.Service.LivroService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-import static org.springframework.web.servlet.function.ServerResponse.noContent;
 
 @RestController
 @RequestMapping("/livro")

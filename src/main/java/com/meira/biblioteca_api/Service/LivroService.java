@@ -1,6 +1,6 @@
 package com.meira.biblioteca_api.Service;
 
-import com.meira.biblioteca_api.DTO.RequqestDTO.LivroRequestDTO;
+import com.meira.biblioteca_api.DTO.RequestDTO.LivroRequestDTO;
 import com.meira.biblioteca_api.DTO.ResponseDTO.LivroResponseDTO;
 import com.meira.biblioteca_api.Enums.StatusLivro;
 import com.meira.biblioteca_api.Exception.ResourceNotFoundException;

@@ -1,11 +1,8 @@
 package com.meira.biblioteca_api.Controller;
 
-import com.meira.biblioteca_api.DTO.RequqestDTO.AutorRequestDTO;
-import com.meira.biblioteca_api.DTO.RequqestDTO.LivroRequestDTO;
+import com.meira.biblioteca_api.DTO.RequestDTO.AutorRequestDTO;
 import com.meira.biblioteca_api.DTO.ResponseDTO.AutorResponseDTO;
-import com.meira.biblioteca_api.DTO.ResponseDTO.LivroResponseDTO;
 import com.meira.biblioteca_api.Model.AutorModel;
-import com.meira.biblioteca_api.Model.LivroModel;
 import com.meira.biblioteca_api.Service.AutorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

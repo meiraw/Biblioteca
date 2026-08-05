@@ -1,4 +1,4 @@
-package com.meira.biblioteca_api.DTO.RequqestDTO;
+package com.meira.biblioteca_api.DTO.RequestDTO;
 
 import com.meira.biblioteca_api.Enums.StatusLivro;
 import jakarta.validation.constraints.NotBlank;
