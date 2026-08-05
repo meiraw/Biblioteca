@@ -38,7 +38,7 @@ public class LivroController {
 
     @GetMapping("/buscar")
     public ResponseEntity<List<LivroResponseDTO>> buscarTitulo(@RequestParam String titulo){
-        List<LivroModel> livros = livroservice. buscarPorTitulo(titulo);
+        List<LivroModel> livros = livroservice. buscarPorTitulo(titulo); //Filtro de titulo
 
         List<LivroResponseDTO> resposta = livros.stream().map(LivroResponseDTO :: new ).toList();
         return ResponseEntity.ok(resposta);
@@ -46,7 +46,7 @@ public class LivroController {
 
     @GetMapping("/status")
     public ResponseEntity<Page <LivroResponseDTO>> buscarstatus(@RequestParam StatusLivro status , Pageable pageable ){
-        return ResponseEntity.ok(livroservice.buscarPorStatus(status,pageable));
+        return ResponseEntity.ok(livroservice.buscarPorStatus(status,pageable)); //Filtro de status
     }
 
     @GetMapping("/{id}")

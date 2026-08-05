@@ -43,7 +43,7 @@ public class LivroService {
         return livroRepository.save(livro);
     }
 
-    public Page<LivroResponseDTO> listarTudo (Pageable pageable ){
+    public Page<LivroResponseDTO> listarTudo (Pageable pageable ){ //Paginação
         Page<LivroModel> livro = livroRepository.findAll(pageable);
         return livro.map(LivroResponseDTO::new);
     }
@@ -52,13 +52,13 @@ public class LivroService {
         return livroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("O id "+id +" não foi encontrado! "));
     }
 
-    public List <LivroModel> buscarPorTitulo(String titulo){
-        return livroRepository.findByTituloContainingIgnoreCase(titulo);
+    public List <LivroModel> buscarPorTitulo(String titulo){  // Filtro de buscar por titulo
+        return livroRepository.findByTituloContainingIgnoreCase(titulo); // Usando Containing e IgnoreCase
     }
 
      public Page <LivroResponseDTO> buscarPorStatus(StatusLivro status, Pageable pageable ){
          return livroRepository.findByStatus(status, pageable ).map(LivroResponseDTO :: new );
-     }
+     } //Usando paginação para reduzir a buscar completa dos livro na filtragem
 
 
     public LivroModel atualizar (LivroRequestDTO dto ,UUID id){
