@@ -49,6 +49,11 @@ public class LivroController {
         return ResponseEntity.ok(livroservice.buscarPorStatus(status,pageable)); //Filtro de status
     }
 
+    @GetMapping("/buscar-specification")
+    public ResponseEntity< List<LivroModel> >buscarSpecification (@RequestParam  String titulo){
+        return ResponseEntity.ok(livroservice.buscarPorTituloSpecification(titulo));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<LivroResponseDTO > buscar (@PathVariable UUID id ){
         LivroModel buscaroid = livroservice.buscarPorId(id);
