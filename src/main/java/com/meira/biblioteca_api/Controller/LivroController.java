@@ -49,7 +49,7 @@ public class LivroController {
         return ResponseEntity.ok(livroservice.buscarPorStatus(status,pageable)); //Filtro de status
     }
 
-    @GetMapping("/buscar-specification")
+    @GetMapping("/titulo-specification")
     public ResponseEntity< List<LivroModel> >buscarSpecification (@RequestParam  String titulo){
         return ResponseEntity.ok(livroservice.buscarPorTituloSpecification(titulo));
     }
