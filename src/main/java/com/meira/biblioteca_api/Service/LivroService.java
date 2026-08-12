@@ -60,14 +60,16 @@ public class LivroService {
 
      // Aplicação do metodo do specification no service para buscar de titulos
      // Nesse caso , ele recebe a string titulo e retorna em list<LivroModel>
-    public List<LivroModel> buscarPorTituloSpecification  (String titulo ){ // Cria o metodo no service , onde iremos buscar o tiulo por specification
+    public List<LivroResponseDTO> buscarPorTituloSpecification  (String titulo ) { // Cria o metodo no service , onde iremos buscar o tiulo por specification
 
         Specification<LivroModel> specification = LivroSpecification.tituloContem(titulo);
         //Essa é a parte mais importante do metodo
         //acontence a conexão do speficication no repository com o service , onde pedimos ao repository o titulo e os metodos juntos.
-        return livroRepository.findAll(specification); // aqui retorna o metodo
-    }
 
+        List<LivroModel> livros =
+                livroRepository.findAll(specification);
+        return livros.stream().map(LivroResponseDTO::new).toList();
+    }
      public Page <LivroResponseDTO> buscarPorStatus(StatusLivro status, Pageable pageable ){
          return livroRepository.findByStatus(status, pageable ).map(LivroResponseDTO :: new );
      } //Usando paginação para reduzir a buscar completa dos livro na filtragem
