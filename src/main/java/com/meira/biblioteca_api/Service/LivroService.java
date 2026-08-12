@@ -8,9 +8,11 @@ import com.meira.biblioteca_api.Model.AutorModel;
 import com.meira.biblioteca_api.Model.LivroModel;
 import com.meira.biblioteca_api.Repository.AutorRepository;
 import com.meira.biblioteca_api.Repository.LivroRepository;
+import com.meira.biblioteca_api.Specification.LivroSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
@@ -54,6 +56,16 @@ public class LivroService {
 
     public List <LivroModel> buscarPorTitulo(String titulo){  // Filtro de buscar por titulo
         return livroRepository.findByTituloContainingIgnoreCase(titulo); // Usando Containing e IgnoreCase
+    }
+
+     // Aplicação do metodo do specification no service para buscar de titulos
+     // Nesse caso , ele recebe a string titulo e retorna em list<LivroModel>
+    public List<LivroModel> buscarPorTituloSpecification  (String titulo ){ // Cria o metodo no service , onde iremos buscar o tiulo por specification
+
+        Specification<LivroModel> specification = LivroSpecification.tituloContem(titulo);
+        //Essa é a parte mais importante do metodo
+        //acontence a conexão do speficication no repository com o service , onde pedimos ao repository o titulo e os metodos juntos.
+        return livroRepository.findAll(specification); // aqui retorna o metodo
     }
 
      public Page <LivroResponseDTO> buscarPorStatus(StatusLivro status, Pageable pageable ){
