@@ -30,8 +30,13 @@ public class LivroModel {
     @Enumerated(EnumType.STRING)
     private StatusLivro status;
 
-    @ManyToOne
-    @JoinColumn(name = "Autor_id", nullable = false)
+    @ManyToOne   // Usamos para pode fazer o relacionamento JPA
+    @JoinColumn(name = "Autor_id", nullable = false) // usamos esse código para pode ter um relacionamento entre tabelas
+    // Sendo assim , estamos fazendo um relacionamento de livro com autor
+    // no caso do autor , podemos fazer mesma coisa , porém , usamos o onetomany
     private AutorModel autor;
+
+    //Um exemplo simples : vários podem ter uma pessoa , uma pessoa pode ter varios livros
+    // assim que funciona o relacionamento JPA , o mesmo que tem entre entidade no banco de dados
 
 }

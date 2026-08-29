@@ -17,6 +17,16 @@ import java.util.UUID;
 @RequestMapping("/autor")
 public class AutorController {
 
+    // ResponseEntity , podemos usar para controlar a resposta em HTTP
+
+    //Exemplos
+    // 200 ok
+    // 201 crated
+    //  400 bad request
+    // 404 Not found
+
+
+
     @Autowired
     private AutorService autorService;
 
@@ -26,8 +36,15 @@ public class AutorController {
         return ResponseEntity.status(201).body(new AutorResponseDTO(autor));
     }
 
+
+    // o Pageable é utilzado somente em listar um dados inteiro
+
     @GetMapping
-    public ResponseEntity<Page<AutorResponseDTO>> listar(Pageable pageable ){
+    public ResponseEntity<Page<AutorResponseDTO>> listar(Pageable pageable ){ // O uso do Pageable
+        // é uma paginação de busca ,evita poder ter uma busca completa
+        // quando temos uma busca grande de dados , é possivel que o programa trave
+        //Sendo assim , usamos o page como forma de controlar isso
+        // Ele é aplicado no controller e service
         Page<AutorResponseDTO> autor = autorService.listarTudo(pageable);
         return ResponseEntity.ok(autor);
     }
