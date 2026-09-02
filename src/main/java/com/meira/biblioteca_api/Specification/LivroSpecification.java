@@ -1,7 +1,12 @@
 package com.meira.biblioteca_api.Specification;
 
+import com.meira.biblioteca_api.DTO.ResponseDTO.LivroResponseDTO;
+import com.meira.biblioteca_api.Enums.StatusLivro;
 import com.meira.biblioteca_api.Model.LivroModel;
 import org.springframework.data.jpa.domain.Specification;
+
+import java.util.List;
+
 //Depois de criar no repository a permissão do Specification
 //Responsavel para montar consulta de livro (Filtro )
 //Ele é o where para buscas
@@ -19,6 +24,14 @@ public class LivroSpecification {
                     );
 
     }
+
+    public static Specification<LivroModel> statusIgual(StatusLivro status){
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(  root.get("status"), // significa pegar o titulo do livro
+                        status           // transformando todos os caracteres em minusculos
+                );
+    }
+
 }
 
 

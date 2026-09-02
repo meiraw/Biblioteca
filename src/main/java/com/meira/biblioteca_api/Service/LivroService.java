@@ -75,6 +75,25 @@ public class LivroService {
      } //Usando paginação para reduzir a buscar completa dos livro na filtragem
 
 
+
+
+     public List<LivroResponseDTO> buscar (StatusLivro status ){ // Specification , juntando  o String titulo + LivroStatus status
+
+         Specification<LivroModel> specification = Specification.where(null);
+
+
+         if(status != null){
+             specification  = specification.and(LivroSpecification.statusIgual(status));
+
+         }
+
+         List<LivroModel > livros =
+                 livroRepository.findAll(specification);
+         return livros.stream().map(LivroResponseDTO:: new ).toList();
+     }
+
+
+
     public LivroModel atualizar (LivroRequestDTO dto ,UUID id){
 
         AutorModel renome = autorRepository.findById(dto.getAutorid()).orElseThrow(()-> new ResourceNotFoundException ("O id "+ dto.getAutorid() +" não foi encontrado!"));
@@ -93,4 +112,6 @@ public class LivroService {
         LivroModel excluir = buscarPorId(id);
         livroRepository.delete(excluir);
     }
+
+
 }
