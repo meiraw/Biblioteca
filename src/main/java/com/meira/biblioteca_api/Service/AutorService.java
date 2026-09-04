@@ -26,7 +26,8 @@ public class AutorService {
         return autorRepository.save(autor);
     }
 
-    public Page<AutorResponseDTO> listarTudo(Pageable pageable){
+    public Page<AutorResponseDTO> listarTudo(Pageable pageable){  // O Pageable é somente usado em listar dados
+        // caso os dados pode ser grande
         Page<AutorModel> autor = autorRepository.findAll(pageable);
         return autor.map(AutorResponseDTO::new);
     }

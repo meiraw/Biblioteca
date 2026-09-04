@@ -26,4 +26,9 @@ public class AutorModel {
     @OneToMany(mappedBy =  "autor")
     private List<LivroModel > livros = new ArrayList<>( );
 
+    //Aqui estamos usando o OnetoMany  como , por exemplo : um autor possui vários livros
+    // neste caso ele esta fazendo o inverso de ManytoOne
+    //SObre o List<LivroModel> , utilizamos ele para não ter loop de busca , já pode ter algum tipo de problema
+    // de busca caso faça get no postman
+
 }
