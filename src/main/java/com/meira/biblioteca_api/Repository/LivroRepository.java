@@ -14,4 +14,9 @@ public interface LivroRepository extends JpaRepository<LivroModel, UUID>, JpaSpe
     List<LivroModel> findByTituloContainingIgnoreCase(String titulo);
     Page<LivroModel> findByStatus(StatusLivro status, Pageable pageable);
 
+    Page<LivroModel> findByTituloContainingIgnoreCaseAndStatus(
+            String titulo,
+            StatusLivro status,
+            Pageable pageable
+    );
 }

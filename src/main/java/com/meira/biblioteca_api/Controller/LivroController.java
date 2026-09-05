@@ -50,7 +50,7 @@ public class LivroController {
     }
 
     @GetMapping("/titulo-specification")
-    public ResponseEntity< List<LivroModel> >buscarSpecification (@RequestParam  String titulo){
+    public ResponseEntity<List<LivroResponseDTO>> buscarSpecification (@RequestParam  String titulo){
         return ResponseEntity.ok(livroservice.buscarPorTituloSpecification(titulo));
     }
 
@@ -60,8 +60,28 @@ public class LivroController {
         return ResponseEntity.ok(new LivroResponseDTO(buscaroid));
     }
 
+    @GetMapping("/buscar-combinado")
+    public ResponseEntity<Page<LivroResponseDTO>> buscarPorTituloAndStatus(@RequestParam String titulo,@RequestParam StatusLivro status , Pageable pageable){
+        // Fazemos o page<LivroModel> para receber paginas com entidades no banco. cada elemento é um livromodel , que possui o relacionamento com autorModel
+        Page<LivroModel> livros = livroservice.buscarPorTituloAndStatus(titulo, status, pageable);
+        //Depois de colocar a lógica do specification no service
+        // Aqui fazemos o endpoint para receber essa requisições
+
+        Page<LivroResponseDTO> resposta = livros.map(LivroResponseDTO :: new); // Aqui transformamos cada entidade em um objeto preparado para a resposta da API
+        // no DTO , pegamos o ID e o nome do autor em vez de incluir o objeto AutorModel inteiro
+        return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping ("/filtro-specification")//Endpoint de Specification
+    public ResponseEntity<Page<LivroResponseDTO>> SpecificationTituloAndStatus(@RequestParam String titulo , @RequestParam StatusLivro status, Pageable pageable){
+        Page<LivroModel> filtro = livroservice.tituloAndStatus(titulo,status,pageable);
+
+        Page<LivroResponseDTO>  respostaFiltro =  filtro.map(LivroResponseDTO :: new);
+        return ResponseEntity.ok(respostaFiltro);
+    }
+
     @PutMapping("/{id}")
-public ResponseEntity<LivroResponseDTO> atualizar (@Valid @RequestBody LivroRequestDTO dto , @PathVariable UUID id){
+    public ResponseEntity<LivroResponseDTO> atualizar (@Valid @RequestBody LivroRequestDTO dto , @PathVariable UUID id){
         LivroModel novolivro = livroservice.atualizar(dto,id);
         return ResponseEntity.ok(new LivroResponseDTO(novolivro));
     }

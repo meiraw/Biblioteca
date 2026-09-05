@@ -74,6 +74,10 @@ public class LivroService {
          return livroRepository.findByStatus(status, pageable ).map(LivroResponseDTO :: new );
      } //Usando paginação para reduzir a buscar completa dos livro na filtragem
 
+     public Page<LivroModel> buscarPorTituloAndStatus(String titulo , StatusLivro status, Pageable pageable ) {
+         return livroRepository.findByTituloContainingIgnoreCaseAndStatus(titulo, status, pageable);
+
+     }
 
     public LivroModel atualizar (LivroRequestDTO dto ,UUID id){
 
@@ -88,6 +92,12 @@ public class LivroService {
         novolivro.setAutor(renome);
         return livroRepository.save(novolivro);
     }
+
+    public Page<LivroModel> tituloAndStatus(String titulo, StatusLivro status , Pageable pageable ){
+        Specification<LivroModel> filtro = LivroSpecification.tituloContem(titulo).and(LivroSpecification.statusIgual(status));
+        return livroRepository.findAll(filtro,pageable);
+    } // Adicionando o Specification no service , no caso o metodo de busca e filtro. Essa é a parte que junta os dois casos de
+     // metodo no specification , status e titulo;
 
     public void deletar(UUID id ){
         LivroModel excluir = buscarPorId(id);

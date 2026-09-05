@@ -15,13 +15,13 @@ public class LivroSpecification {
 
     //Cria a regra da pesquisa para o livro model
     //No caso o busca será direta ao titulo do livro com o "String titulo "
-    public static Specification<LivroModel> tituloContem(String titulo) {
+    public static Specification<LivroModel> tituloContem(String titulo) { //Esse metodo recebe um texto e devolve uma regra de busca para livros
         //Retorna a pesquisa , neste caso dentro do LivroModel
         return (root, query, criteriaBuilder) ->
                     criteriaBuilder.like(   //Condição LIKE em SQl
-                            criteriaBuilder.lower(root.get("titulo")), // significa pegar o titulo do livro
-                            "%" + titulo.toLowerCase() + "%"            // transformando todos os caracteres em minusculos
-                    );
+                            criteriaBuilder.lower(root.get("titulo")), // significa pegar o titulo do livro // transformando todos os caracteres em minusculos
+                            "%" + titulo.toLowerCase() + "%"            // Aqui define que o titulo deve ter o  %% , exemplo , livro : %JAVA%
+                    ); //O % é usado pelo LIKE para representar qualquer sequência de caracteres, inclusive nenhuma.
 
     }
 
