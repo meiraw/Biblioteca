@@ -91,4 +91,12 @@ public class LivroController {
         LivroModel deletar = livroservice.buscarPorId(id);
         return ResponseEntity.noContent().build();
     }
+
+    //Adicionando o Query
+    @GetMapping("/buscar-por-ano")
+    public ResponseEntity<Page<LivroResponseDTO>> buscarPorAno(@RequestParam Integer ano,Pageable pageable){
+        Page<LivroModel> livros = livroservice.buscarPorAno(ano,pageable);
+        Page<LivroResponseDTO> resposta = livros.map(LivroResponseDTO :: new);
+        return ResponseEntity.ok(resposta);
+    }
 }

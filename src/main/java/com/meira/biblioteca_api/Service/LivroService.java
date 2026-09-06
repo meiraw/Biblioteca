@@ -104,5 +104,10 @@ public class LivroService {
         livroRepository.delete(excluir);
     }
 
+    //Adicionando o query
+     public Page<LivroModel> buscarPorAno (Integer ano ,Pageable pageable ){
+        return livroRepository.buscarPorAno(ano,pageable);
+     }
+
 
 }
