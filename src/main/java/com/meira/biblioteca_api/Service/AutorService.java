@@ -2,6 +2,7 @@ package com.meira.biblioteca_api.Service;
 
 import com.meira.biblioteca_api.DTO.RequestDTO.AutorRequestDTO;
 import com.meira.biblioteca_api.DTO.ResponseDTO.AutorResponseDTO;
+import com.meira.biblioteca_api.Exception.RegraNegocioException;
 import com.meira.biblioteca_api.Exception.ResourceNotFoundException;
 import com.meira.biblioteca_api.Model.AutorModel;
 import com.meira.biblioteca_api.Repository.AutorRepository;
@@ -44,8 +45,13 @@ public class AutorService {
         return autorRepository.save(renome);
     }
 
+    //Apicação da regre de negócio
     public void deletar (UUID id){
         AutorModel excluir = buscarPorId(id);
+        if (!excluir.getLivros().isEmpty()){ // Se a lista de livros do autor NÃO estiver vazia, impeça a exclusão.
+            // o ! significa negação , no caso , precisamos se seja negatico, já que retorna true
+            throw new RegraNegocioException("Não é possível excluir um autor que possui livros cadastrados.");
+        }
         autorRepository.delete(excluir);
     }
 }

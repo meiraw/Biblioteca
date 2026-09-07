@@ -26,4 +26,15 @@ public class GlobalHandlerException {
 
         return ResponseEntity.status(400).body(error);
     }
+
+    //Emplementação de erro na regra de negócio no delete de status do livro de EMPRTESTADO
+    // e no delete de autor , que não pode acontecer
+    //E a emplementação do 409 conflict
+    @ExceptionHandler(RegraNegocioException.class)
+    public ResponseEntity<ErrorResponse> handleRegraNegocio(RegraNegocioException ex) {
+
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), 409);
+
+        return ResponseEntity.status(409).body(error);
+    }
 }

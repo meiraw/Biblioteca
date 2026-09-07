@@ -3,6 +3,7 @@ package com.meira.biblioteca_api.Service;
 import com.meira.biblioteca_api.DTO.RequestDTO.LivroRequestDTO;
 import com.meira.biblioteca_api.DTO.ResponseDTO.LivroResponseDTO;
 import com.meira.biblioteca_api.Enums.StatusLivro;
+import com.meira.biblioteca_api.Exception.RegraNegocioException;
 import com.meira.biblioteca_api.Exception.ResourceNotFoundException;
 import com.meira.biblioteca_api.Model.AutorModel;
 import com.meira.biblioteca_api.Model.LivroModel;
@@ -99,8 +100,16 @@ public class LivroService {
     } // Adicionando o Specification no service , no caso o metodo de busca e filtro. Essa é a parte que junta os dois casos de
      // metodo no specification , status e titulo;
 
+
+//Aplicação da regra de negócio
     public void deletar(UUID id ){
         LivroModel excluir = buscarPorId(id);
+        if(excluir.getStatus() == StatusLivro.EMPRESTADO ){// pegar o status do livro encontrado e verificar se ele é especificamente EMPRESTADO.
+            // uma informação , nesse caso o excluir é uma varaivel de livrOmodel, sendo assim , usamos o get para acessar o status do livromodel
+            // fazendo a comparação com status do livro , para verificar se o livro que vamos excluir é igual ao 'EMPRESTADO'
+            throw new RegraNegocioException("Não é possivel excluir esse livro emprestado!"); //Mensagem de erro como exception ,tratamento de erro.
+            //Além disso, RegraNegocioException para a operção caso o livro for o EMPRESTADO
+        }
         livroRepository.delete(excluir);
     }
 

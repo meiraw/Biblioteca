@@ -88,7 +88,9 @@ public class LivroController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir (@PathVariable UUID id ){
-        LivroModel deletar = livroservice.buscarPorId(id);
+        //LivroModel deletar = livroservice.buscarPorId(id); (Não precisa dessa linha de código )
+        //Motivo , no próprio service ele tem o Livroservice,deletar(id) que já diz que o id será deletado, no controller só representamos isso!
+        livroservice.deletar(id); //adicionamoes o service aqui do livro , no caso para referencias a exclusão do livro do service no controller
         return ResponseEntity.noContent().build();
     }
 

@@ -63,7 +63,7 @@ public class AutorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir (@PathVariable UUID id ){
-        AutorModel deletar = autorService.buscarPorId(id);
+        autorService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }
