@@ -108,7 +108,7 @@ public class LivroService {
             // uma informação , nesse caso o excluir é uma varaivel de livrOmodel, sendo assim , usamos o get para acessar o status do livromodel
             // fazendo a comparação com status do livro , para verificar se o livro que vamos excluir é igual ao 'EMPRESTADO'
             throw new RegraNegocioException("Não é possivel excluir esse livro emprestado!"); //Mensagem de erro como exception ,tratamento de erro.
-            //Além disso, RegraNegocioException para a operção caso o livro for o EMPRESTADO
+            //Além disso, RegraNegocio  Exception para a operção caso o livro for o EMPRESTADO
         }
         livroRepository.delete(excluir);
     }
